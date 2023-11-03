@@ -1,4 +1,4 @@
-命令运行
+### 命令运行
 ```go
 go run main.go  --env=dev
 ```
@@ -6,7 +6,9 @@ go run main.go  --env=dev
 ```go
 air
 ```
+### 接口文档
 
+swag init 后访问:http://localhost:3000/swagger/index.html#/
 
-2023年11月02日17:04:14开始数据库初始化 database.Connect()
-https://github.com/summerblue/gohub/commit/f9f933713aa2f8cb8d78afa75e667095ab98ddef
+2023年11月03日16:32:38 开始手机是否注册接口
+https://github.com/summerblue/gohub/commit/60bc3b0ca4e0399c200933237c20d1ddbca496f0
