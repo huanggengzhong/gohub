@@ -23,4 +23,6 @@ func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 	if err != nil {
 		fmt.Println("数据库底层错误:", err.Error())
 	}
+
+	fmt.Println("数据库链接成功")
 }

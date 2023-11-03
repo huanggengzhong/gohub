@@ -9,31 +9,22 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "新增文章标签",
+                "tags": [
+                    "授权"
+                ],
+                "summary": "校验手机号是否已注册",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Name",
-                        "name": "name",
+                        "description": "手机号码",
+                        "name": "phone",
                         "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "State",
-                        "name": "state",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "CreatedBy",
-                        "name": "created_by",
-                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
+                        "description": "{\"code\":200,\"exist\":true,\"msg\":\"ok\"}",
                         "schema": {
                             "type": "string"
                         }

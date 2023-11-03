@@ -4,25 +4,19 @@ paths:
   /v1/auth/signup/phone/exist:
     post:
       parameters:
-      - description: Name
+      - description: 手机号码
         in: query
-        name: name
+        name: phone
         required: true
         type: string
-      - description: State
-        in: query
-        name: state
-        type: integer
-      - description: CreatedBy
-        in: query
-        name: created_by
-        type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: '{"code":200,"exist":true,"msg":"ok"}'
           schema:
             type: string
-      summary: 新增文章标签
+      summary: 校验手机号是否已注册
+      tags:
+      - 授权
 swagger: "2.0"
