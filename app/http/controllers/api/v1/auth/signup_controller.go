@@ -42,7 +42,6 @@ func (sc SignupController) IsPhoneExist(c *gin.Context) {
 	//使用表单验证
 	errs := requests.ValidateSignupPhoneExist(&request, c)
 	if len(errs) > 0 {
-		fmt.Println("----打印----", len(errs))
 		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
 			"code": 422,
 			"data": errs,
