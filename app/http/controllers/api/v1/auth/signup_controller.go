@@ -41,10 +41,12 @@ func (sc SignupController) IsPhoneExist(c *gin.Context) {
 	}
 	//使用表单验证
 	errs := requests.ValidateSignupPhoneExist(&request, c)
-
 	if len(errs) > 0 {
+		fmt.Println("----打印----", len(errs))
 		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-			"errors": errs,
+			"code": 422,
+			"data": errs,
+			"msg":  "参数校验失败",
 		})
 		return
 	}
@@ -52,6 +54,6 @@ func (sc SignupController) IsPhoneExist(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"data": user.IsPhoneExist(request.Phone),
-		"msg":  "",
+		"msg":  "success",
 	})
 }
