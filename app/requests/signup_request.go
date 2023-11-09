@@ -15,7 +15,7 @@ type SignupPhoneExistRequest struct {
 	Phone string `json:"phone,omitempty" valid:"phone"`
 }
 
-func ValiadateSignupEmailExist(data interface{}, c *gin.Context) map[string][]string {
+func SignupEmailExist(data interface{}, c *gin.Context) map[string][]string {
 	//	自定义验证规则
 	rules := govalidator.MapData{
 		"email": []string{"required", "min:4", "max:30", "email"},
@@ -28,16 +28,17 @@ func ValiadateSignupEmailExist(data interface{}, c *gin.Context) map[string][]st
 			"email:邮箱格式不正确",
 		},
 	}
-	options := govalidator.Options{
-		Data:          data,
-		Rules:         rules,
-		TagIdentifier: "valid", //struct里的标识符
-		Messages:      messages,
-	}
-	return govalidator.New(options).ValidateStruct()
+	return validate(data, rules, messages)
+	//options := govalidator.Options{
+	//	Data:          data,
+	//	Rules:         rules,
+	//	TagIdentifier: "valid", //struct里的标识符
+	//	Messages:      messages,
+	//}
+	//return govalidator.New(options).ValidateStruct()
 }
 
-func ValidateSignupPhoneExist(data interface{}, c *gin.Context) map[string][]string {
+func SignupPhoneExist(data interface{}, c *gin.Context) map[string][]string {
 
 	// 自定义验证规则
 	rules := govalidator.MapData{
@@ -52,14 +53,16 @@ func ValidateSignupPhoneExist(data interface{}, c *gin.Context) map[string][]str
 		},
 	}
 
-	// 配置初始化
-	opts := govalidator.Options{
-		Data:          data,
-		Rules:         rules,
-		TagIdentifier: "valid", // 模型中的 Struct 标签标识符
-		Messages:      messages,
-	}
+	//// 配置初始化
+	//opts := govalidator.Options{
+	//	Data:          data,
+	//	Rules:         rules,
+	//	TagIdentifier: "valid", // 模型中的 Struct 标签标识符
+	//	Messages:      messages,
+	//}
+	//
+	//// 开始验证
+	//return govalidator.New(opts).ValidateStruct()
 
-	// 开始验证
-	return govalidator.New(opts).ValidateStruct()
+	return validate(data, rules, messages)
 }
