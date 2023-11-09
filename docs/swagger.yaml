@@ -1,6 +1,24 @@
 info:
   contact: {}
 paths:
+  /v1/auth/signup/email/exist:
+    post:
+      parameters:
+      - description: 邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 校验邮箱是否已注册
+      tags:
+      - 授权
   /v1/auth/signup/phone/exist:
     post:
       parameters:

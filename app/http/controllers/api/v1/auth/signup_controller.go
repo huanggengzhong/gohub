@@ -56,3 +56,35 @@ func (sc SignupController) IsPhoneExist(c *gin.Context) {
 		"msg":  "success",
 	})
 }
+
+// @Summary 校验邮箱是否已注册
+// @Produce  json
+// @Tags 授权
+// @Param email query string true "邮箱"
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/auth/signup/email/exist [post]
+func (sc SignupController) IsEmailExist(c *gin.Context) {
+	request := requests.SignupEmailExistRequest{}
+	if err := c.ShouldBindJSON(&request); err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	//使用表单验证
+	errs := requests.ValiadateSignupEmailExist(&request, c)
+	if len(errs) > 0 {
+		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
+			"code": 422,
+			"data": errs,
+			"msg":  "参数校验失败",
+		})
+		return
+	} else {
+
+		c.JSON(http.StatusOK, gin.H{
+			"code": 200,
+			"data": user.IsEmailExist(request.Email),
+			"msg":  "success",
+		})
+	}
+
+}
