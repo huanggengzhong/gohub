@@ -21,8 +21,11 @@ func main() {
 	if env == "" {
 		env = "dev"
 	}
+	//初始化配置
 	config.InitConfig(env)
-
+	//初始化日志
+	bootstrap.SetupLogger()
+	// 初始化Gin实例
 	r := gin.New()
 	//初始化DB
 	bootstrap.SetupDB()

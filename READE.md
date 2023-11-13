@@ -10,7 +10,4 @@ air
 
 swag init 后访问:http://localhost:3000/swagger/index.html#/
 
-2023年11月03日16:32:38 开始验证请求
-https://github.com/summerblue/gohub/commit/8816a63cd72ccf1afce7ba2f0cf5e5620ffbfba9
-
-2023年11月09日11:46:55完成邮箱验证请求
+2023年11月13日16:32:38 日志辅助方法
