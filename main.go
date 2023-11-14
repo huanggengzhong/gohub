@@ -34,6 +34,8 @@ func main() {
 	r := gin.New()
 	//初始化DB
 	bootstrap.SetupDB()
+	//初始化redis
+	bootstrap.SetupRedis()
 	//初始化路由
 	bootstrap.SetupRoute(r)
 	fmt.Println("访问端口:", config.Get("app.port"))
