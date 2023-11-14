@@ -10,4 +10,4 @@ air
 
 swag init 后访问:http://localhost:3000/swagger/index.html#/
 
-2023年11月13日16:32:38 开始日志辅助方法
+2023年11月13日16:32:38 开始redis

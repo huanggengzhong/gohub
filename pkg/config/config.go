@@ -40,7 +40,7 @@ func Env(envName string, defaultValue ...interface{}) interface{} {
 
 // 初始化配置
 func InitConfig(env string) {
-	fmt.Println("获取的环境env是:", env)
+	fmt.Println("当前环境:", env)
 	// 1. 加载环境变量
 	loadEnv(env)
 	// 2. 注册配置信息

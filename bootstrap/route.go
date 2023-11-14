@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gohub/app/http/middlewares"
 	"gohub/routes"
@@ -13,6 +14,7 @@ func SetupRoute(r *gin.Engine) {
 	registerGlobalMiddleWare(r)
 	routes.RegisterAPIRoutes(r)
 	setup404Router(r)
+	fmt.Println("路由初始化成功")
 }
 
 // 路由中间件

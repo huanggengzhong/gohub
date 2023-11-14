@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"gohub/pkg/logger"
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
 )
@@ -13,7 +14,8 @@ var SQLDB *sql.DB
 func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 	var err error
 	DB, err = gorm.Open(dbConfig, &gorm.Config{
-		Logger: _logger,
+		Logger: logger.NewGormLogger(),
+		//Logger: _logger,
 	})
 	if err != nil {
 		fmt.Println("数据库链接错误:", err.Error())
@@ -24,5 +26,5 @@ func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 		fmt.Println("数据库底层错误:", err.Error())
 	}
 
-	fmt.Println("数据库链接成功")
+	fmt.Println("数据库初始化成功")
 }

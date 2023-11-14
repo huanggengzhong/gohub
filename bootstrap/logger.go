@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"fmt"
 	"gohub/pkg/config"
 	"gohub/pkg/logger"
 )
@@ -15,4 +16,5 @@ func SetupLogger() {
 		config.GetString("log.type"),
 		config.GetString("log.level"),
 	)
+	fmt.Println("日志初始化成功")
 }

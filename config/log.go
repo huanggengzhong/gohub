@@ -19,8 +19,8 @@ func init() {
 	config.Add("log", func() map[string]interface{} {
 		return map[string]interface{}{
 			"level": config.Env("LOG_LEVEL", "debug"),
-			"type":  config.Env("LOG_TYPE"),
-			//"type":  config.Env("LOG_TYPE", "single"),
+			//"type":  config.Env("LOG_TYPE"),
+			"type": config.Env("LOG_TYPE", "daily"),
 			// 日志文件路径
 			"filename": config.Env("LOG_NAME", "storage/logs/logs.log"),
 			// 每个日志文件保存的最大尺寸 单位：M

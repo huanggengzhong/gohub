@@ -36,6 +36,7 @@ func main() {
 	bootstrap.SetupDB()
 	//初始化路由
 	bootstrap.SetupRoute(r)
+	fmt.Println("访问端口:", config.Get("app.port"))
 	err := r.Run(":" + config.Get("app.port"))
 	if err != nil {
 		fmt.Println("运行错误:", err.Error())
