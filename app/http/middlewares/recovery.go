@@ -3,6 +3,7 @@ package middlewares
 import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gohub/pkg/logger"
 	"net"
 	"net/http"
 	"net/http/httputil"
