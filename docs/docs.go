@@ -72,7 +72,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/verfy-codes/captcha": {
+        "/verify-codes/captcha": {
             "post": {
                 "produces": [
                     "application/json"
@@ -83,7 +83,49 @@ const docTemplate = `{
                 "summary": "获取图片验证码",
                 "responses": {
                     "200": {
-                        "description": "{\"captcha_id\":1,\"captcha_image\":\"\"}",
+                        "description": "{\"captcha_id\":1,\"data\":\"\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/verify-codes/phone": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权"
+                ],
+                "summary": "发送短信验证码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "手机号码",
+                        "name": "phone",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "图片验证码ID",
+                        "name": "captcha_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "图片验证码答案",
+                        "name": "captcha_answer",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":\"\"}",
                         "schema": {
                             "type": "string"
                         }

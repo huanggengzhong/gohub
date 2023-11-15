@@ -22,7 +22,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			authGroup.POST("/signup/email/exist", initSignupController.IsEmailExist)
 			//获取图片验证码
 			vcc := new(auth.VerifyCodeController)
-			authGroup.POST("/verfy-codes/captcha", vcc.ShowCaptcha)
+			authGroup.POST("/verify-codes/captcha", vcc.ShowCaptcha)
+			authGroup.POST("/varify-codes/phone", vcc.SendUsingPhone)
 		}
 	}
 }

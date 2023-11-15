@@ -37,16 +37,44 @@ paths:
       summary: 校验手机号是否已注册
       tags:
       - 授权
-  /verfy-codes/captcha:
+  /verify-codes/captcha:
     post:
       produces:
       - application/json
       responses:
         "200":
-          description: '{"captcha_id":1,"captcha_image":""}'
+          description: '{"captcha_id":1,"data":""}'
           schema:
             type: string
       summary: 获取图片验证码
+      tags:
+      - 授权
+  /verify-codes/phone:
+    post:
+      parameters:
+      - description: 手机号码
+        in: query
+        name: phone
+        required: true
+        type: string
+      - description: 图片验证码ID
+        in: query
+        name: captcha_id
+        required: true
+        type: string
+      - description: 图片验证码答案
+        in: query
+        name: captcha_answer
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":""}'
+          schema:
+            type: string
+      summary: 发送短信验证码
       tags:
       - 授权
 swagger: "2.0"
