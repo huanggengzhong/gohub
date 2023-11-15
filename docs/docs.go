@@ -71,6 +71,25 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/verfy-codes/captcha": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权"
+                ],
+                "summary": "获取图片验证码",
+                "responses": {
+                    "200": {
+                        "description": "{\"captcha_id\":1,\"captcha_image\":\"\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     }
 }`
