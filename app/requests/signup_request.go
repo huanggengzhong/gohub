@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/thedevsaddam/govalidator"
 	"gohub/app/requests/validators"
+	"gohub/pkg/app"
 )
 
 //处理请求和表单验证
@@ -115,9 +116,10 @@ func SignupUsingPhone(data interface{}, c *gin.Context) map[string][]string {
 	//校验两个密码是否一致
 	errs = validators.ValidatePasswordConfirm(_data.Password, _data.PasswordConfirm, errs)
 	//测试待删除 start
-	//if !app.IsLocal() {}
-	//测试待删除 end
-	errs = validators.ValidateVerifyCode(_data.Phone, _data.VerifyCode, errs)
+	if !app.IsLocal() {
+		//测试待删除 end
+		errs = validators.ValidateVerifyCode(_data.Phone, _data.VerifyCode, errs)
+	}
 
 	return errs
 
