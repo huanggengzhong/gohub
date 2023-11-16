@@ -76,7 +76,6 @@ func (sc SignupController) SignupUsingPhone(c *gin.Context) {
 	if ok := requests.Validate(c, &request, requests.SignupUsingPhone); !ok {
 		return
 	}
-
 	//创建用户数据
 	_user := user.User{
 		Name:     request.Name,

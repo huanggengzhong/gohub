@@ -29,6 +29,7 @@ func main() {
 	// 设置 gin 的运行模式，支持 debug, release, test
 	// 非 release 模式 gin 终端打印太多信息，干扰到我们程序中的 Log
 	// 故此设置为 release，有特殊情况手动改为 debug 即可
+	//gin.SetMode("debug")
 	gin.SetMode(gin.ReleaseMode)
 	// 初始化Gin实例
 	r := gin.New()
