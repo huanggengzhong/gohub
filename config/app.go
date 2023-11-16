@@ -1,9 +1,12 @@
 package config
 
-import "gohub/pkg/config"
+import (
+	"gohub/pkg/config"
+)
 
 func init() {
 	config.Add("app", func() map[string]interface{} {
+
 		return map[string]interface{}{
 			// 应用名称
 			"name": config.Env("APP_NAME", "Gohub"),

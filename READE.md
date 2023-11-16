@@ -1,8 +1,8 @@
 ### 命令运行
 ```go
-go run main.go  --env=dev
+go run main.go  --env=local
 ```
-热更新运行命令(推荐,默认会自动设置env为dev)
+热更新运行命令(推荐,无参数main.go默认设置local)
 ```go
 air
 ```

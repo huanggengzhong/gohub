@@ -72,7 +72,7 @@ func loadEnv(envSuffix string) {
 	// 默认加载 .env 文件，如果有传参 --env=name 的话，加载 .env.name 文件
 	envPath := ".env"
 	if len(envSuffix) > 0 {
-		filePath := ".env.dev" + envSuffix
+		filePath := ".env." + envSuffix
 		if _, err := os.Stat(filePath); err == nil {
 			envPath = filePath
 		}

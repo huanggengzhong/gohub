@@ -17,9 +17,9 @@ func main() {
 	var env string
 	flag.StringVar(&env, "env", "", "加载.env.xx文件")
 	flag.Parse()
-	//air 运行或者无env默认设置dev
+	//air 运行或者命令无--env=参数默认设置local
 	if env == "" {
-		env = "dev"
+		env = "local"
 	}
 	//初始化配置
 	config.InitConfig(env)
