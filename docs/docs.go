@@ -72,6 +72,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/auth/signup/using-phone": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权"
+                ],
+                "summary": "使用手机验证码进行注册",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "手机号",
+                        "name": "phone",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "确认密码",
+                        "name": "password_confirm",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短信验证码",
+                        "name": "verify_code",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/verify-codes/captcha": {
             "post": {
                 "produces": [
@@ -99,7 +155,7 @@ const docTemplate = `{
                 "tags": [
                     "授权"
                 ],
-                "summary": "发送短信验证码",
+                "summary": "发送短信验证码(前提先获取图片验证码)",
                 "parameters": [
                     {
                         "type": "string",

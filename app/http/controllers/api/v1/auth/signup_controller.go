@@ -25,7 +25,7 @@ type SignupController struct {
 // @Success 200 {string} json "{"code":200,"exist":true,"msg":"ok"}"
 // @Router /v1/auth/signup/phone/exist [post]
 func (sc SignupController) IsPhoneExist(c *gin.Context) {
-	
+
 	request := requests.SignupPhoneExistRequest{}
 
 	if ok := requests.Validate(c, &request, requests.SignupPhoneExist); !ok {
@@ -56,4 +56,40 @@ func (sc SignupController) IsEmailExist(c *gin.Context) {
 		"msg":   "success",
 	})
 
+}
+
+// @Summary 使用手机验证码进行注册
+// @Produce  json
+// @Tags 授权
+// @Param phone query string true "手机号"
+// @Param name query string true "用户名"
+// @Param password query string true "密码"
+// @Param password_confirm query string true "确认密码"
+// @Param verify_code query string true "短信验证码"
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/auth/signup/using-phone [post]
+func (sc SignupController) SignupUsingPhone(c *gin.Context) {
+	//表单校验
+	request := requests.SignupUsingPhoneRequest{}
+	if ok := requests.Validate(c, &request, requests.SignupUsingPhone); !ok {
+		return
+	}
+
+	//创建用户数据
+	_user := user.User{
+		Name:     request.Name,
+		Phone:    request.Phone,
+		Password: request.Password,
+	}
+	_user.Create()
+	//根据ID判断用户是否存在
+	if _user.ID > 0 {
+		response.CreatedJSON(c, gin.H{
+			"code":    200,
+			"data":    _user,
+			"message": "创建成功",
+		})
+	} else {
+		response.Abort500(c, "用户创建失败")
+	}
 }
