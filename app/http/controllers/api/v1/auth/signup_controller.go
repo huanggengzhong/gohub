@@ -5,6 +5,7 @@ import (
 	v1 "gohub/app/http/controllers/api/v1"
 	"gohub/app/models/user"
 	"gohub/app/requests"
+	"gohub/pkg/logger"
 	"gohub/pkg/response"
 )
 
@@ -71,6 +72,7 @@ func (sc SignupController) IsEmailExist(c *gin.Context) {
 func (sc SignupController) SignupUsingPhone(c *gin.Context) {
 	//表单校验
 	request := requests.SignupUsingPhoneRequest{}
+	logger.Dump(request)
 	if ok := requests.Validate(c, &request, requests.SignupUsingPhone); !ok {
 		return
 	}
@@ -81,6 +83,7 @@ func (sc SignupController) SignupUsingPhone(c *gin.Context) {
 		Phone:    request.Phone,
 		Password: request.Password,
 	}
+	//logger.Dump(_user)
 	_user.Create()
 	//根据ID判断用户是否存在
 	if _user.ID > 0 {

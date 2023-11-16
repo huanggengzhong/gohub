@@ -81,7 +81,7 @@ func SignupUsingPhone(data interface{}, c *gin.Context) map[string][]string {
 		//not_exists是自定义rules,假设有一个用户注册的场景，需要验证用户名是否已经存在于数据库中
 		"phone": []string{"required", "digits:11", "not_exists:users,phone"},
 		//alpha_num验证的字段必须完全是字母数字字符
-		"name":             []string{"required", "alpha_num", "between:3,20", "not_exists"},
+		"name":             []string{"required", "alpha_num", "between:3,20", "not_exists:users,name"},
 		"verify_code":      []string{"required", "digits:6"},
 		"password":         []string{"required", "min:6"},
 		"password_confirm": []string{"required", "min:6"},
@@ -100,7 +100,7 @@ func SignupUsingPhone(data interface{}, c *gin.Context) map[string][]string {
 			"required:密码不能为空",
 			"min:密码不能少于6位",
 		},
-		"password_comfirm": []string{
+		"password_confirm": []string{
 			"required:确认密码不能为空",
 			"min:确认密码不能少于6位",
 		},
@@ -114,8 +114,11 @@ func SignupUsingPhone(data interface{}, c *gin.Context) map[string][]string {
 	_data := data.(*SignupUsingPhoneRequest)
 	//校验两个密码是否一致
 	errs = validators.ValidatePasswordConfirm(_data.Password, _data.PasswordConfirm, errs)
-	//校验验证码
+	//测试待删除 start
+	//if !app.IsLocal() {}
+	//测试待删除 end
 	errs = validators.ValidateVerifyCode(_data.Phone, _data.VerifyCode, errs)
+
 	return errs
 
 }

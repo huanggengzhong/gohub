@@ -18,7 +18,7 @@ func init() {
 	// not_exists:users,email,32 排除用户掉 id 为 32 的用户
 
 	govalidator.AddCustomRule("not_exists", func(field string, rule string, message string, value interface{}) error {
-		rng := strings.Split(strings.TrimPrefix(rule, "not_exists"), ",")
+		rng := strings.Split(strings.TrimPrefix(rule, "not_exists:"), ",")
 		// 第一个参数，表名称，如 users
 		tableName := rng[0]
 		// 第二个参数，字段名称，如 email 或者 phone

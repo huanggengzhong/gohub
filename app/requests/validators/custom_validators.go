@@ -1,6 +1,8 @@
 package validators
 
-import "gohub/pkg/verifycode"
+import (
+	"gohub/pkg/verifycode"
+)
 
 // ValidatePasswordConfirm 自定义规则，检查两次密码是否正确
 
