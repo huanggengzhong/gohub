@@ -1,6 +1,51 @@
 info:
   contact: {}
 paths:
+  /v1/auth/login/refresh-token:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 刷新令牌(延长时间)
+      tags:
+      - 授权
+  /v1/auth/login/using-password:
+    post:
+      parameters:
+      - description: 填手机号/email/用户名
+        in: query
+        name: login_id
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: 图形验证码id
+        in: query
+        name: captcha_id
+        required: true
+        type: string
+      - description: 图形验证码
+        in: query
+        name: captcha_answer
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 使用密码登录
+      tags:
+      - 授权
   /v1/auth/login/using-phone:
     post:
       parameters:

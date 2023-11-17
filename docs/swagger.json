@@ -4,6 +4,74 @@
         "contact": {}
     },
     "paths": {
+        "/v1/auth/login/refresh-token": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权"
+                ],
+                "summary": "刷新令牌(延长时间)",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/auth/login/using-password": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权"
+                ],
+                "summary": "使用密码登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "填手机号/email/用户名",
+                        "name": "login_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "图形验证码id",
+                        "name": "captcha_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "图形验证码",
+                        "name": "captcha_answer",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/auth/login/using-phone": {
             "post": {
                 "produces": [
