@@ -31,6 +31,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			authGroup.POST("/login/using-phone", loginControllerInit.LoginByPhone)
 			//使用手机号,email,用户名+密码登录
 			authGroup.POST("/login/using-password", loginControllerInit.LoginByPassword)
+			//刷新时间
+			authGroup.POST("/login/refresh-token", loginControllerInit.RefreshToken)
 		}
 	}
 }

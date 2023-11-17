@@ -41,6 +41,31 @@ func (lc *LoginController) LoginByPhone(c *gin.Context) {
 	}
 }
 
+// @Summary 刷新令牌(延长时间)
+// @Produce  json
+// @Tags 授权
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/auth/login/refresh-token [post]
+func (lc *LoginController) RefreshToken(c *gin.Context) {
+	token, err := jwt.NewJWT().RefreshToken(c)
+	if err != nil {
+		response.Error(c, err, "令牌刷新失败")
+	} else {
+		response.JSON(c, gin.H{
+			"token": token,
+		})
+	}
+}
+
+// @Summary 使用密码登录
+// @Produce  json
+// @Tags 授权
+// @Param login_id query string true "填手机号/email/用户名"
+// @Param password query string true "密码"
+// @Param captcha_id query string true "图形验证码id"
+// @Param captcha_answer query string true "图形验证码"
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/auth/login/using-password [post]
 func (lc *LoginController) LoginByPassword(c *gin.Context) {
 	//表单验证
 	request := requests.LoginByPasswordRequest{}
