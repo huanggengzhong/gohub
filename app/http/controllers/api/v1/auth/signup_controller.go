@@ -5,6 +5,7 @@ import (
 	v1 "gohub/app/http/controllers/api/v1"
 	"gohub/app/models/user"
 	"gohub/app/requests"
+	"gohub/pkg/jwt"
 	"gohub/pkg/logger"
 	"gohub/pkg/response"
 )
@@ -77,18 +78,21 @@ func (sc SignupController) SignupUsingPhone(c *gin.Context) {
 		return
 	}
 	//创建用户数据
-	_user := user.User{
+	userModel := user.User{
 		Name:     request.Name,
 		Phone:    request.Phone,
 		Password: request.Password,
 	}
 	//logger.Dump(_user)
-	_user.Create()
+	userModel.Create()
 	//根据ID判断用户是否存在
-	if _user.ID > 0 {
+	if userModel.ID > 0 {
+		//增加token
+		token := jwt.NewJWT().IssueToken(userModel.GetStringID(), userModel.Name)
 		response.CreatedJSON(c, gin.H{
 			"code":    200,
-			"data":    _user,
+			"token":   token,
+			"data":    userModel,
 			"message": "创建成功",
 		})
 	} else {

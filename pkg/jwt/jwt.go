@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	jwtpkg "github.com/golang-jwt/jwt"
 	"gohub/pkg/app"
@@ -53,36 +54,6 @@ func NewJWT() *JWT {
 	}
 }
 
-// createToken创建 Token，内部使用，外部请调用 IssueToken
-func (jwt *JWT) createToken(claims JWTCustomClaims) (string, error) {
-	token := jwtpkg.NewWithClaims(jwtpkg.SigningMethodES256, claims)
-	return token.SignedString(jwt.SignKey)
-}
-
-// IssueToken 生成 Token，外部调用,在登录成功时调用
-func (jwt *JWT) IssueToken(userID, userName string) string {
-	// 1. 构造用户 claims 信息
-	expireAtTime := jwt.expireAtTime()
-	claims := JWTCustomClaims{
-		userID,
-		userName,
-		expireAtTime,
-		jwtpkg.StandardClaims{
-			NotBefore: app.TimenowInTimezone().Unix(),
-			IssuedAt:  app.TimenowInTimezone().Unix(),
-			ExpiresAt: expireAtTime,
-			Issuer:    config.GetString("app.name"),
-		},
-	}
-	// 2. 根据 claims 生成token对象
-	token, err := jwt.createToken(claims)
-	if err != nil {
-		logger.LogIf(err)
-		return ""
-	}
-	return token
-}
-
 // ParserToken 解析 Token，中间件中调用
 func (jwt *JWT) ParserToken(c *gin.Context) (*JWTCustomClaims, error) {
 	tokenString, parseErr := jwt.getTokenFromHeader(c)
@@ -113,6 +84,87 @@ func (jwt *JWT) ParserToken(c *gin.Context) (*JWTCustomClaims, error) {
 	return nil, ErrTokenInvalid
 }
 
+//RefreshToken 更新 Token，用以提供 refresh token 接口
+
+func (jwt *JWT) RefreshToken(c *gin.Context) (string, error) {
+	// 1. 从 Header 里获取 token
+	tokenString, parseErr := jwt.getTokenFromHeader(c)
+	if parseErr != nil {
+		return "", parseErr
+	}
+	// 2. 调用 jwt 库解析用户传参的 Token
+	token, err := jwt.parseTokenString(tokenString)
+	// 3. 解析出错，未报错证明是合法的 Token（甚至未到过期时间）
+	if err != nil {
+		validationErr, ok := err.(*jwtpkg.ValidationError)
+		// 满足 refresh 的条件：只是单一的报错 ValidationErrorExpired
+		if !ok || validationErr.Errors != jwtpkg.ValidationErrorExpired {
+			return "", err
+		}
+	}
+	// 4. 解析 JWTCustomClaims 的数据
+	claims := token.Claims.(*JWTCustomClaims)
+	// 5. 检查是否过了『最大允许刷新的时间』
+	x := app.TimenowInTimezone().Add(-jwt.MaxRefresh).Unix()
+	if claims.IssuedAt > x {
+		//修改时间
+		claims.StandardClaims.ExpiresAt = jwt.expireAtTime()
+		return jwt.createToken(*claims)
+	}
+	return "", ErrTokenExpiredMaxRefresh
+}
+
+// IssueToken 生成 Token，外部调用,在登录成功时调用
+func (jwt *JWT) IssueToken(userID, userName string) string {
+	// 1. 构造用户 claims 信息
+	expireAtTime := jwt.expireAtTime()
+	claims := JWTCustomClaims{
+		userID,
+		userName,
+		expireAtTime,
+		jwtpkg.StandardClaims{
+			NotBefore: app.TimenowInTimezone().Unix(),
+			IssuedAt:  app.TimenowInTimezone().Unix(),
+			ExpiresAt: expireAtTime,
+			Issuer:    config.GetString("app.name"),
+		},
+	}
+	// 2. 根据 claims 生成token对象
+	token, err := jwt.createToken(claims)
+	if err != nil {
+		logger.LogIf(err)
+		return ""
+	}
+	return token
+}
+
+// createToken创建 Token，内部使用，外部请调用 IssueToken
+func (jwt *JWT) createToken(claims JWTCustomClaims) (string, error) {
+	token := jwtpkg.NewWithClaims(jwtpkg.SigningMethodHS256, claims)
+	return token.SignedString(jwt.SignKey)
+}
+
+// 获取过期时间
+func (jwt *JWT) expireAtTime() int64 {
+	timenow := app.TimenowInTimezone()
+
+	var expireTime int64
+	if config.GetBool("app.debug") {
+		expireTime = config.GetInt64("jwt.debug_exprire_time")
+	} else {
+		expireTime = config.GetInt64("jwt.exprire_time")
+	}
+	expire := time.Duration(expireTime) * time.Minute
+	return timenow.Add(expire).Unix()
+}
+
+// 使用 jwtpkg.ParseWithClaims 解析 Token
+func (jwt *JWT) parseTokenString(tokenString string) (*jwtpkg.Token, error) {
+	return jwtpkg.ParseWithClaims(tokenString, &JWTCustomClaims{}, func(token *jwtpkg.Token) (interface{}, error) {
+		return jwt.SignKey, nil
+	})
+}
+
 // 获取请求头token
 func (jwt *JWT) getTokenFromHeader(c *gin.Context) (string, error) {
 	authHeader := c.Request.Header.Get("Authorization")
@@ -125,25 +177,4 @@ func (jwt *JWT) getTokenFromHeader(c *gin.Context) (string, error) {
 		return "", ErrHeaderEmpty
 	}
 	return parts[1], nil
-}
-
-// 使用 jwtpkg.ParseWithClaims 解析 Token
-func (jwt *JWT) parseTokenString(tokenString string) (*jwtpkg.Token, error) {
-	return jwtpkg.ParseWithClaims(tokenString, &JWTCustomClaims{}, func(token *jwtpkg.Token) (interface{}, error) {
-		return jwt.SignKey, nil
-	})
-}
-
-// 获取过期时间
-func (jwt *JWT) expireAtTime() int64 {
-	timenow := app.TimenowInTimezone()
-
-	var expireTime int64
-	if app.IsLocal() {
-		expireTime = config.GetInt64("jwt.debug_exprire_time")
-	} else {
-		expireTime = config.GetInt64("jwt.exprire_time")
-	}
-	expire := time.Duration(expireTime) * time.Minute
-	return timenow.Add(expire).Unix()
 }
