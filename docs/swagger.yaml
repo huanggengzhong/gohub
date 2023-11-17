@@ -1,6 +1,29 @@
 info:
   contact: {}
 paths:
+  /v1/auth/login/using-phone:
+    post:
+      parameters:
+      - description: 手机号
+        in: query
+        name: phone
+        required: true
+        type: string
+      - description: 短信验证码
+        in: query
+        name: verify_code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 使用手机验证码进行登录
+      tags:
+      - 授权
   /v1/auth/signup/email/exist:
     post:
       parameters:
