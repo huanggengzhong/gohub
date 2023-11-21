@@ -30,6 +30,7 @@ func (pc *PasswordController) ResetByPhone(c *gin.Context) {
 	if userModel.ID == 0 {
 		response.Abort404(c)
 	} else {
+		userModel.Password = request.Password
 		userModel.Save()
 		response.Success(c)
 	}
