@@ -19,7 +19,7 @@ func SetupRoute(r *gin.Engine) {
 
 // 路由中间件
 func registerGlobalMiddleWare(r *gin.Engine) {
-	r.Use(middlewares.Logger(), middlewares.Recovery())
+	r.Use(middlewares.Logger(), middlewares.Recovery(), middlewares.ForceUA())
 }
 
 // 404

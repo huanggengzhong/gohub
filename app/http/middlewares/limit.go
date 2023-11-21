@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"gohub/pkg/app"
@@ -18,13 +19,17 @@ import (
 // * 1000 reqs/hour: "1000-H"
 // * 2000 reqs/day: "2000-D"
 func LimitIP(limit string) gin.HandlerFunc {
+	fmt.Println("-------------------LimitIP-------------")
 	if app.IsTesting() {
 		limit = "1000000-H"
 	}
 	return func(c *gin.Context) {
 		//针对IP限流
 		key := limiter.GetKeyIP(c)
-		limitHandler(c, key, limit)
+		if ok := limitHandler(c, key, limit); !ok {
+			return
+		}
+		c.Next()
 	}
 }
 
