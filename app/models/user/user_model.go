@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"gohub/app/models"
 	"gohub/pkg/database"
 	"gohub/pkg/hash"
@@ -23,5 +24,13 @@ func (userModel *User) Create() {
 
 // 对比密码是否正确
 func (userModel *User) ComparePassword(_password string) bool {
-	return hash.BcryptCheck(_password, userModel.Password)
+	res := hash.BcryptCheck(_password, userModel.Password)
+	fmt.Println("-----结果,对比密码,新旧是-----", res, _password, userModel.Password)
+	return res
+}
+
+// 保存用户(比如更新密码)
+func (userModel *User) Save() (rowsAffected int64) {
+	result := database.DB.Save(&userModel)
+	return result.RowsAffected
 }
