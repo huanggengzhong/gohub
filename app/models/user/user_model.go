@@ -12,8 +12,8 @@ type User struct {
 	//omitempty字段作用如果值为空省略显示该字段和和该字段内容
 	models.BaseModel
 	Name     string `json:"name,omitempty"`
-	Email    string `json:"-"`
-	Phone    string `json:"-"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
 	Password string `json:"-"`
 }
 
