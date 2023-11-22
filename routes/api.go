@@ -4,10 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	controllers "gohub/app/http/controllers/api/v1"
 	"gohub/app/http/controllers/api/v1/auth"
 	"gohub/app/http/middlewares"
 	_ "gohub/docs"
-	"gohub/pkg/config"
 )
 
 // 注册路由
@@ -17,11 +17,12 @@ func RegisterAPIRoutes(r *gin.Engine) {
 
 	//v1 := r.Group("/v1")
 	var v1 *gin.RouterGroup
-	if len(config.Get("app.api_domain")) == 0 {
-		v1 = r.Group("/api/v1")
-	} else {
-		v1 = r.Group("/v1")
-	}
+	//if len(config.Get("app.api_domain")) == 0 {
+	//	v1 = r.Group("/api/v1")
+	//} else {
+	//	v1 = r.Group("/v1")
+	//}
+	v1 = r.Group("/v1")
 	// 全局限流中间件：每小时限流。这里是所有 API （根据 IP）请求加起来。
 	// 作为参考 Github API 每小时最多 60 个请求（根据 IP）。
 	// 测试时，可以调高一点。
@@ -52,6 +53,9 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			//根据手机号+短信验证码 重置密码
 			passwordControllerInit := new(auth.PasswordController)
 			authGroup.POST("/password-reset/using-phone", middlewares.GuestJWT(), passwordControllerInit.ResetByPhone)
+			//当前用户接口
+			UsersControllerInit := new(controllers.UsersController)
+			v1.GET("/user", middlewares.AuthJWT(), UsersControllerInit.CurrentUser)
 		}
 	}
 }

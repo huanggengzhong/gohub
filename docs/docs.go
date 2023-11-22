@@ -119,6 +119,41 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/auth/password-reset/using-phone": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权"
+                ],
+                "summary": "找回密码(通过手机号+短信验证码)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "手机号",
+                        "name": "phone",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短信验证码",
+                        "name": "verify_code",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/auth/signup/email/exist": {
             "post": {
                 "produces": [
@@ -221,6 +256,18 @@ const docTemplate = `{
                         "required": true
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user": {
+            "post": {
                 "responses": {
                     "200": {
                         "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
