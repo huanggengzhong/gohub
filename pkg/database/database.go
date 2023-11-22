@@ -28,3 +28,9 @@ func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 
 	fmt.Println("数据库初始化成功")
 }
+
+func TableName(obj interface{}) string {
+	stmt := &gorm.Statement{DB: DB}
+	stmt.Parse(obj)
+	return stmt.Schema.Table
+}

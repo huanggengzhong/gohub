@@ -22,3 +22,12 @@ func TimenowInTimezone() time.Time {
 	chinaTimeZone, _ := time.LoadLocation(config.GetString("app.timezone"))
 	return time.Now().In(chinaTimeZone)
 }
+
+func URL(path string) string {
+	return config.Get("app.url") + path
+}
+
+// 拼接带v1
+func V1URL(path string) string {
+	return URL("/v1/" + path)
+}
