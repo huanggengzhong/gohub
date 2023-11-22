@@ -37,7 +37,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 
 			authGroup.POST("/signup/phone/exist", middlewares.GuestJWT(), middlewares.LimitPerRoute("60-H"), initSignupController.IsPhoneExist)
 			authGroup.POST("/signup/email/exist", middlewares.GuestJWT(), middlewares.LimitPerRoute("60-H"), initSignupController.IsEmailExist)
-			authGroup.POST("/signup/using-phone", middlewares.AuthJWT(), initSignupController.SignupUsingPhone)
+			authGroup.POST("/signup/using-phone", middlewares.GuestJWT(), initSignupController.SignupUsingPhone)
 
 			//获取图片验证码
 			vcc := new(auth.VerifyCodeController)
