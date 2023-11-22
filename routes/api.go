@@ -53,9 +53,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			//根据手机号+短信验证码 重置密码
 			passwordControllerInit := new(auth.PasswordController)
 			authGroup.POST("/password-reset/using-phone", middlewares.GuestJWT(), passwordControllerInit.ResetByPhone)
-			//当前用户接口
+			//用户接口
 			UsersControllerInit := new(controllers.UsersController)
 			v1.GET("/user", middlewares.AuthJWT(), UsersControllerInit.CurrentUser)
+			usersGroup := v1.Group("/users")
+			{
+				usersGroup.GET("", UsersControllerInit.Index)
+			}
 		}
 	}
 }
