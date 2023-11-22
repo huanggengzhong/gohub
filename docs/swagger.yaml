@@ -166,6 +166,29 @@ paths:
       summary: 使用手机验证码进行注册
       tags:
       - 授权
+  /v1/categories/create:
+    post:
+      parameters:
+      - description: 分类名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 描述
+        in: query
+        name: description
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 分类
+      tags:
+      - 内容
   /v1/user:
     get:
       produces:

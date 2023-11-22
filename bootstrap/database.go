@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"fmt"
+	"gohub/app/models/category"
 	"gohub/app/models/user"
 	"gohub/pkg/config"
 	"gohub/pkg/database"
@@ -42,4 +43,6 @@ func SetupDB() {
 	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
 	//根据用户模型自动创建数据库表
 	database.DB.AutoMigrate(&user.User{})
+	//根据分类模型自动创建数据库表
+	database.DB.AutoMigrate(&category.Category{})
 }

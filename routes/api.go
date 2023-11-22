@@ -33,32 +33,39 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		// 测试时，可以调高一点
 		authGroup.Use(middlewares.LimitIP("1000-H"))
 		{
+			//注册
 			initSignupController := new(auth.SignupController)
-
 			authGroup.POST("/signup/phone/exist", middlewares.GuestJWT(), middlewares.LimitPerRoute("60-H"), initSignupController.IsPhoneExist)
 			authGroup.POST("/signup/email/exist", middlewares.GuestJWT(), middlewares.LimitPerRoute("60-H"), initSignupController.IsEmailExist)
 			authGroup.POST("/signup/using-phone", middlewares.GuestJWT(), initSignupController.SignupUsingPhone)
 
-			//获取图片验证码
+			//验证
 			vcc := new(auth.VerifyCodeController)
 			authGroup.POST("/verify-codes/captcha", middlewares.LimitPerRoute("20-H"), vcc.ShowCaptcha)
 			authGroup.POST("/varify-codes/phone", middlewares.LimitPerRoute("20-H"), vcc.SendUsingPhone)
+
+			//登录
 			loginControllerInit := new(auth.LoginController)
-			//使用手机验证码登录
 			authGroup.POST("/login/using-phone", middlewares.GuestJWT(), loginControllerInit.LoginByPhone)
-			//使用手机号,email,用户名+密码登录
 			authGroup.POST("/login/using-password", middlewares.GuestJWT(), loginControllerInit.LoginByPassword)
-			//刷新token
 			authGroup.POST("/login/refresh-token", middlewares.AuthJWT(), loginControllerInit.RefreshToken)
-			//根据手机号+短信验证码 重置密码
+
+			//重置密码
 			passwordControllerInit := new(auth.PasswordController)
 			authGroup.POST("/password-reset/using-phone", middlewares.GuestJWT(), passwordControllerInit.ResetByPhone)
+
 			//用户接口
 			UsersControllerInit := new(controllers.UsersController)
 			v1.GET("/user", middlewares.AuthJWT(), UsersControllerInit.CurrentUser)
 			usersGroup := v1.Group("/users")
 			{
 				usersGroup.GET("", UsersControllerInit.Index)
+			}
+			//分类接口
+			CategoryControllerInit := new(controllers.CategoryController)
+			cgcGroup := v1.Group("/categories")
+			{
+				cgcGroup.POST("/create", middlewares.AuthJWT(), CategoryControllerInit.Store)
 			}
 		}
 	}
