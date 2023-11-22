@@ -40,7 +40,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 
 			//获取图片验证码
 			vcc := new(auth.VerifyCodeController)
-			authGroup.POST("/verify-codes/captcha", middlewares.LimitPerRoute("2-H"), vcc.ShowCaptcha)
+			authGroup.POST("/verify-codes/captcha", middlewares.LimitPerRoute("20-H"), vcc.ShowCaptcha)
 			authGroup.POST("/varify-codes/phone", middlewares.LimitPerRoute("20-H"), vcc.SendUsingPhone)
 			loginControllerInit := new(auth.LoginController)
 			//使用手机验证码登录

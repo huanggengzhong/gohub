@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"gohub/pkg/app"
@@ -19,7 +18,7 @@ import (
 // * 1000 reqs/hour: "1000-H"
 // * 2000 reqs/day: "2000-D"
 func LimitIP(limit string) gin.HandlerFunc {
-	fmt.Println("-------------------LimitIP-------------")
+	//fmt.Println("-------------------LimitIP-------------")
 	if app.IsTesting() {
 		limit = "1000000-H"
 	}
@@ -35,7 +34,7 @@ func LimitIP(limit string) gin.HandlerFunc {
 
 // LimitPerRoute 限流中间件，用在单独的路由中
 func LimitPerRoute(limit string) gin.HandlerFunc {
-
+	//fmt.Println("------------LimitPerRoute--------")
 	if app.IsTesting() {
 		limit = "100000-H"
 	}

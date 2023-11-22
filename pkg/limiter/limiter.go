@@ -34,6 +34,7 @@ func CheckRate(c *gin.Context, key string, formatted string) (limiterlib.Context
 	}
 
 	// 初始化存储，使用我们程序里共用的 redis.Redis 对象
+	//redis.Redis.Client报错原因是redis版本有问题,解决直接使用redis "github.com/redis/go-redis/v9"
 	store, err := sredis.NewStoreWithOptions(redis.Redis.Client, limiterlib.StoreOptions{
 		// 为 limiter 设置前缀，保持 redis 里数据的整洁
 		Prefix: config.GetString("app.name") + ":limiter",
