@@ -15,6 +15,7 @@ type User struct {
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 	Password string `json:"-"`
+	models.CommonTimestampsField
 }
 
 // Create创建用户

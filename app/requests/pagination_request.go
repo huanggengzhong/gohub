@@ -12,6 +12,7 @@ type PaginationRequest struct {
 }
 
 func Pagination(data interface{}, c *gin.Context) map[string][]string {
+
 	rules := govalidator.MapData{
 		"sort":     []string{"in:id,created_at,updated_at"},
 		"order":    []string{"in:asc,desc"},

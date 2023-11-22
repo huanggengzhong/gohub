@@ -13,7 +13,7 @@ type BaseModel struct {
 // CommonTimestampsField 时间戳
 type CommonTimestampsField struct {
 	CreatedAt time.Time `gorm:"column:created_at;index;" json:"created_at,omitempty"`
-	UpdatedAt time.Time `gorm:"column:updated_at;index" json:"updated_at,omitempty"`
+	UpdatedAt time.Time `gorm:"column:updated_at;index;" json:"updated_at,omitempty"`
 }
 
 // 获取 ID 的字符串格式

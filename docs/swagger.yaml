@@ -167,12 +167,46 @@ paths:
       tags:
       - 授权
   /v1/user:
-    post:
+    get:
+      produces:
+      - application/json
       responses:
         "200":
           description: '{"code":200,"data":true,"msg":"success"}'
           schema:
             type: string
+      summary: 获取当前用户
+      tags:
+      - 用户
+  /v1/users:
+    get:
+      parameters:
+      - description: 排序(id/created_at/updated_at,默认id)
+        in: query
+        name: sort
+        type: string
+      - description: 排序规则(仅支持 asc（正序）,desc（倒序）)
+        in: query
+        name: order
+        type: string
+      - description: 每页条数(介于 2~100 之间)
+        in: query
+        name: per_page
+        type: string
+      - description: 当前页
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 获取所有用户
+      tags:
+      - 用户
   /verify-codes/captcha:
     post:
       produces:
