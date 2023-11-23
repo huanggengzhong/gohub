@@ -26,7 +26,7 @@ func init() {
 		// 第三个参数，排除 ID
 		var exceptID string
 		if len(rng) > 2 {
-			exceptID = rng[3]
+			exceptID = rng[2] //不要超过它的长度,不然会panic
 		}
 		requestValue := value.(string)
 		query := database.DB.Table(tableName).Where(dbFiled+" = ?", requestValue)

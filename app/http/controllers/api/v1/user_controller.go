@@ -47,3 +47,29 @@ func (ctrl *UsersController) Index(c *gin.Context) {
 		"pager": pager,
 	})
 }
+
+// @Summary 修改当前用户
+// @Produce  json
+// @Tags 用户
+// @Param name query string true "用户名"
+// @Param city query string true "城市"
+// @Param introduction query string true "个人简介"
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/users [put]
+func (ctrl *UsersController) Update(c *gin.Context) {
+	request := requests.UserUpdateRequest{}
+	if ok := requests.Validate(c, &request, requests.UserUpdate); !ok {
+		return
+	}
+	userModel := auth.CurrentUser(c)
+	userModel.Name = request.Name
+	userModel.City = request.City
+	userModel.Introduction = request.Introduction
+	rowsAffected := userModel.Save()
+	if rowsAffected > 0 {
+		response.Data(c, userModel)
+	} else {
+		response.Abort500(c, "修改失败")
+	}
+
+}

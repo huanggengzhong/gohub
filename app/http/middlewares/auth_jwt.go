@@ -20,7 +20,7 @@ func AuthJWT() gin.HandlerFunc {
 		//jwt解析成功,设置用户信息
 		userModel := user.Get(claims.UserID)
 		if userModel.ID == 0 {
-			response.Unauthorized(c, "找不到对应用户，用户可能已删除")
+			response.Unauthorized(c, "用户不存在,用户可能已被删除,请用新账号登录")
 			return
 		}
 		// 将用户信息存入 gin.context 里，后续 auth 包将从这里拿到当前用户数据

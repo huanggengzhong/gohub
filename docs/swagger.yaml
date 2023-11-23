@@ -393,6 +393,33 @@ paths:
       summary: 获取所有用户
       tags:
       - 用户
+    put:
+      parameters:
+      - description: 用户名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 城市
+        in: query
+        name: city
+        required: true
+        type: string
+      - description: 个人简介
+        in: query
+        name: introduction
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 修改当前用户
+      tags:
+      - 用户
   /verify-codes/captcha:
     post:
       produces:

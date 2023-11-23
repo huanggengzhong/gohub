@@ -59,7 +59,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			v1.GET("/user", middlewares.AuthJWT(), UsersControllerInit.CurrentUser)
 			usersGroup := v1.Group("/users")
 			{
-				usersGroup.GET("", UsersControllerInit.Index)
+				usersGroup.GET("", middlewares.AuthJWT(), UsersControllerInit.Index)
+				usersGroup.PUT("", middlewares.AuthJWT(), UsersControllerInit.Update)
 			}
 			//分类接口
 			CategoryControllerInit := new(controllers.CategoryController)
@@ -78,8 +79,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 				tpcGroup.POST("", middlewares.AuthJWT(), TopicsControllerInit.Store)
 				tpcGroup.PUT("/:id", middlewares.AuthJWT(), TopicsControllerInit.Update)
 				tpcGroup.DELETE("/:id", middlewares.AuthJWT(), TopicsControllerInit.Delete)
-				tpcGroup.GET("/:id", middlewares.AuthJWT(), TopicsControllerInit.Detail)
-				tpcGroup.GET("", middlewares.AuthJWT(), TopicsControllerInit.Index)
+				tpcGroup.GET("/:id", TopicsControllerInit.Detail)
+				tpcGroup.GET("", TopicsControllerInit.Index)
 
 			}
 		}

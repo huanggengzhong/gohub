@@ -5,6 +5,7 @@ import (
 	"gohub/pkg/app"
 	"gohub/pkg/database"
 	"gohub/pkg/paginator"
+	"gorm.io/gorm/clause"
 )
 
 func Get(idstr string) (topic Topic) {
@@ -13,7 +14,8 @@ func Get(idstr string) (topic Topic) {
 }
 
 func GetBy(field, value string) (topic Topic) {
-	database.DB.Where("? = ?", field, value).First(&topic)
+	//database.DB.Where("? = ?", field, value).First(&topic)
+	database.DB.Preload(clause.Associations).Where("? = ?", field, value).First(&topic)
 	return
 }
 
