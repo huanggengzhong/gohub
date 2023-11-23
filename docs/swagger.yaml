@@ -166,7 +166,29 @@ paths:
       summary: 使用手机验证码进行注册
       tags:
       - 授权
-  /v1/categories/create:
+  /v1/categories:
+    get:
+      parameters:
+      - description: 分类名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 描述
+        in: query
+        name: description
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 分类列表
+      tags:
+      - 内容
     post:
       parameters:
       - description: 分类名
@@ -186,7 +208,52 @@ paths:
           description: '{"code":200,"data":true,"msg":"success"}'
           schema:
             type: string
-      summary: 分类
+      summary: 创建分类
+      tags:
+      - 内容
+  /v1/categories/:id:
+    delete:
+      parameters:
+      - description: 分类名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 描述
+        in: query
+        name: description
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 删除分类
+      tags:
+      - 内容
+    put:
+      parameters:
+      - description: 分类名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 描述
+        in: query
+        name: description
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 修改分类
       tags:
       - 内容
   /v1/user:
