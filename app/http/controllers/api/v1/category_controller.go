@@ -14,8 +14,10 @@ type CategoryController struct {
 // @Summary 分类列表
 // @Produce  json
 // @Tags 内容
-// @Param name query string true "分类名"
-// @Param description query string true "描述"
+// @Param sort query string false "排序(id/created_at/updated_at,默认id)"
+// @Param order query string false "排序规则(仅支持 asc（正序）,desc（倒序）)"
+// @Param per_page query string false "每页条数(介于 2~100 之间)"
+// @Param page query string false "当前页"
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
 // @Router /v1/categories [get]
 func (ctrl *CategoryController) Index(c *gin.Context) {
@@ -88,8 +90,6 @@ func (ctrl *CategoryController) Update(c *gin.Context) {
 // @Summary 删除分类
 // @Produce  json
 // @Tags 内容
-// @Param name query string true "分类名"
-// @Param description query string true "描述"
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
 // @Router /v1/categories/:id [delete]
 func (ctrl *CategoryController) Delete(c *gin.Context) {
@@ -106,4 +106,32 @@ func (ctrl *CategoryController) Delete(c *gin.Context) {
 	} else {
 		response.Abort500(c, "删除失败")
 	}
+}
+
+//type CustomObject struct {
+//	Field1 string `json:"desc"`
+//	Field2 string `json:"c_time"`
+//}
+
+// @Summary 分类详情
+// @Produce  json
+// @Tags 内容
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/categories/:id [get]
+func (ctrl *CategoryController) Detail(c *gin.Context) {
+	//校验参数
+	categoryModel := category.Get(c.Param("id"))
+	if categoryModel.ID == 0 {
+		response.Abort404(c)
+		return
+	}
+	response.Data(c, categoryModel)
+	//time := categoryModel.CreatedAt.Format("2006-01-02 15:04:05")
+	//response.JSON(c, gin.H{
+	//	"code": 200,
+	//	"data": CustomObject{
+	//		Field1: categoryModel.Description,
+	//		Field2: time,
+	//	},
+	//})
 }

@@ -278,17 +278,27 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "分类名",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
+                        "description": "排序(id/created_at/updated_at,默认id)",
+                        "name": "sort",
+                        "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "描述",
-                        "name": "description",
-                        "in": "query",
-                        "required": true
+                        "description": "排序规则(仅支持 asc（正序）,desc（倒序）)",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "每页条数(介于 2~100 之间)",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "当前页",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -335,6 +345,23 @@ const docTemplate = `{
             }
         },
         "/v1/categories/:id": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "内容"
+                ],
+                "summary": "分类详情",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "put": {
                 "produces": [
                     "application/json"
@@ -376,22 +403,6 @@ const docTemplate = `{
                     "内容"
                 ],
                 "summary": "删除分类",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "分类名",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "描述",
-                        "name": "description",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",

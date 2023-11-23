@@ -169,15 +169,21 @@ paths:
   /v1/categories:
     get:
       parameters:
-      - description: 分类名
+      - description: 排序(id/created_at/updated_at,默认id)
         in: query
-        name: name
-        required: true
+        name: sort
         type: string
-      - description: 描述
+      - description: 排序规则(仅支持 asc（正序）,desc（倒序）)
         in: query
-        name: description
-        required: true
+        name: order
+        type: string
+      - description: 每页条数(介于 2~100 之间)
+        in: query
+        name: per_page
+        type: string
+      - description: 当前页
+        in: query
+        name: page
         type: string
       produces:
       - application/json
@@ -213,17 +219,6 @@ paths:
       - 内容
   /v1/categories/:id:
     delete:
-      parameters:
-      - description: 分类名
-        in: query
-        name: name
-        required: true
-        type: string
-      - description: 描述
-        in: query
-        name: description
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -232,6 +227,17 @@ paths:
           schema:
             type: string
       summary: 删除分类
+      tags:
+      - 内容
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 分类详情
       tags:
       - 内容
     put:
