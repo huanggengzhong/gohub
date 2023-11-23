@@ -15,9 +15,11 @@ type Topic struct {
 	CategoryID string `json:"category_id,omitempty" gorm:"type:bigint;not null;index"`
 
 	//通过 user_id 关联用户
-	User user.User `json:"user"`
+	//User user.User `json:"user"`
+	User user.User `json:"-"`
 	// 通过 category_id 关联分类
-	Category category.Category `json:"category"`
+	//Category category.Category `json:"category"`
+	Category category.Category `json:"-"`
 	models.CommonTimestampsField
 }
 

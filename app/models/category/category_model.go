@@ -7,8 +7,8 @@ import (
 
 type Category struct {
 	models.BaseModel
-	Name        string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
+	Name        string `json:"name,omitempty" gorm:"type:varchar(255);not null;index"`
+	Description string `json:"description,omitempty" gorm:"type:varchar(255);default:null"`
 	models.CommonTimestampsField
 }
 

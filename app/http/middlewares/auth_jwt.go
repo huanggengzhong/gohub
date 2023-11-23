@@ -1,10 +1,8 @@
 package middlewares
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"gohub/app/models/user"
-	"gohub/pkg/config"
 	"gohub/pkg/jwt"
 	"gohub/pkg/response"
 )
@@ -15,7 +13,8 @@ func AuthJWT() gin.HandlerFunc {
 		// 从标头 Authorization:Bearer xxxxx 中获取信息，并验证 JWT 的准确性
 		claims, err := jwt.NewJWT().ParserToken(c)
 		if err != nil {
-			response.Unauthorized(c, fmt.Sprintf("token错误,请查看 %v 相关的接口文档", config.GetString("app.name")))
+			response.Unauthorized(c, "身份失效,请重新登陆")
+			//response.Unauthorized(c, fmt.Sprintf("token错误,请查看 %v 相关的接口文档", config.GetString("app.name")))
 			return
 		}
 		//jwt解析成功,设置用户信息

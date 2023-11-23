@@ -11,10 +11,10 @@ import (
 type User struct {
 	//omitempty字段作用如果值为空省略显示该字段和和该字段内容
 	models.BaseModel
-	Name     string `json:"name,omitempty"`
-	Email    string `json:"email"`
-	Phone    string `json:"phone"`
-	Password string `json:"-"`
+	Name     string `json:"name,omitempty" gorm:"type:varchar(255);not null;index"`
+	Email    string `json:"email" gorm:"type:varchar(255);index;default:null"`
+	Phone    string `json:"phone" gorm:"type:varchar(20);index;default:null"`
+	Password string `json:"-" gorm:"type:varchar(255)"`
 	models.CommonTimestampsField
 }
 
