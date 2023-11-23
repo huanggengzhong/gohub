@@ -5,6 +5,7 @@ import (
 	"gohub/app/models/category"
 	"gohub/app/requests"
 	"gohub/pkg/response"
+	"net/http"
 )
 
 type CategoryController struct {
@@ -13,7 +14,7 @@ type CategoryController struct {
 
 // @Summary 分类列表
 // @Produce  json
-// @Tags 内容
+// @Tags 分类
 // @Param sort query string false "排序(id/created_at/updated_at,默认id)"
 // @Param order query string false "排序规则(仅支持 asc（正序）,desc（倒序）)"
 // @Param per_page query string false "每页条数(介于 2~100 之间)"
@@ -27,6 +28,7 @@ func (ctrl *CategoryController) Index(c *gin.Context) {
 	}
 	data, pager := category.Paginate(c, 10)
 	response.JSON(c, gin.H{
+		"code":  http.StatusOK,
 		"data":  data,
 		"pager": pager,
 	})
@@ -34,7 +36,7 @@ func (ctrl *CategoryController) Index(c *gin.Context) {
 
 // @Summary 创建分类
 // @Produce  json
-// @Tags 内容
+// @Tags 分类
 // @Param name query string true "分类名"
 // @Param description query string true "描述"
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
@@ -58,7 +60,7 @@ func (ctrl *CategoryController) Store(c *gin.Context) {
 
 // @Summary 修改分类
 // @Produce  json
-// @Tags 内容
+// @Tags 分类
 // @Param name query string true "分类名"
 // @Param description query string true "描述"
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
@@ -89,7 +91,7 @@ func (ctrl *CategoryController) Update(c *gin.Context) {
 
 // @Summary 删除分类
 // @Produce  json
-// @Tags 内容
+// @Tags 分类
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
 // @Router /v1/categories/:id [delete]
 func (ctrl *CategoryController) Delete(c *gin.Context) {
@@ -115,7 +117,7 @@ func (ctrl *CategoryController) Delete(c *gin.Context) {
 
 // @Summary 分类详情
 // @Produce  json
-// @Tags 内容
+// @Tags 分类
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
 // @Router /v1/categories/:id [get]
 func (ctrl *CategoryController) Detail(c *gin.Context) {

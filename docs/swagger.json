@@ -260,7 +260,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "内容"
+                    "分类"
                 ],
                 "summary": "分类列表",
                 "parameters": [
@@ -303,7 +303,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "内容"
+                    "分类"
                 ],
                 "summary": "创建分类",
                 "parameters": [
@@ -338,7 +338,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "内容"
+                    "分类"
                 ],
                 "summary": "分类详情",
                 "responses": {
@@ -355,7 +355,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "内容"
+                    "分类"
                 ],
                 "summary": "修改分类",
                 "parameters": [
@@ -388,9 +388,147 @@
                     "application/json"
                 ],
                 "tags": [
-                    "内容"
+                    "分类"
                 ],
                 "summary": "删除分类",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/topics": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "帖子列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "排序(id/created_at/updated_at,默认id)",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序规则(仅支持 asc（正序）,desc（倒序）)",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "每页条数(介于 2~100 之间)",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "当前页",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "创建帖子",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "标题",
+                        "name": "title",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "内容",
+                        "name": "body",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "分类id",
+                        "name": "category_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/topics/:id": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "帖子详情",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "修改帖子",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "删除帖子",
                 "responses": {
                     "200": {
                         "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",

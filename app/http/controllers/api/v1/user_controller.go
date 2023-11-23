@@ -6,6 +6,7 @@ import (
 	"gohub/app/requests"
 	"gohub/pkg/auth"
 	"gohub/pkg/response"
+	"net/http"
 )
 
 type UsersController struct {
@@ -41,6 +42,7 @@ func (ctrl *UsersController) Index(c *gin.Context) {
 
 	data, pager := user.Paginate(c, 10)
 	response.JSON(c, gin.H{
+		"code":  http.StatusOK,
 		"data":  data,
 		"pager": pager,
 	})

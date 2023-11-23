@@ -194,7 +194,7 @@ paths:
             type: string
       summary: 分类列表
       tags:
-      - 内容
+      - 分类
     post:
       parameters:
       - description: 分类名
@@ -216,7 +216,7 @@ paths:
             type: string
       summary: 创建分类
       tags:
-      - 内容
+      - 分类
   /v1/categories/:id:
     delete:
       produces:
@@ -228,7 +228,7 @@ paths:
             type: string
       summary: 删除分类
       tags:
-      - 内容
+      - 分类
     get:
       produces:
       - application/json
@@ -239,7 +239,7 @@ paths:
             type: string
       summary: 分类详情
       tags:
-      - 内容
+      - 分类
     put:
       parameters:
       - description: 分类名
@@ -261,7 +261,97 @@ paths:
             type: string
       summary: 修改分类
       tags:
-      - 内容
+      - 分类
+  /v1/topics:
+    get:
+      parameters:
+      - description: 排序(id/created_at/updated_at,默认id)
+        in: query
+        name: sort
+        type: string
+      - description: 排序规则(仅支持 asc（正序）,desc（倒序）)
+        in: query
+        name: order
+        type: string
+      - description: 每页条数(介于 2~100 之间)
+        in: query
+        name: per_page
+        type: string
+      - description: 当前页
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 帖子列表
+      tags:
+      - 帖子
+    post:
+      parameters:
+      - description: 标题
+        in: query
+        name: title
+        required: true
+        type: string
+      - description: 内容
+        in: query
+        name: body
+        required: true
+        type: string
+      - description: 分类id
+        in: query
+        name: category_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 创建帖子
+      tags:
+      - 帖子
+  /v1/topics/:id:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 删除帖子
+      tags:
+      - 帖子
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 帖子详情
+      tags:
+      - 帖子
+    put:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 修改帖子
+      tags:
+      - 帖子
   /v1/user:
     get:
       produces:
