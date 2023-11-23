@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"fmt"
 	"gohub/app/models/category"
+	"gohub/app/models/topic"
 	"gohub/app/models/user"
 	"gohub/pkg/config"
 	"gohub/pkg/database"
@@ -45,4 +46,6 @@ func SetupDB() {
 	database.DB.AutoMigrate(&user.User{})
 	//根据分类模型自动创建数据库表
 	database.DB.AutoMigrate(&category.Category{})
+	//根据话题模型自动创建数据库表
+	database.DB.AutoMigrate(&topic.Topic{})
 }

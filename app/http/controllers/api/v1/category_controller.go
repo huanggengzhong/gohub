@@ -126,6 +126,7 @@ func (ctrl *CategoryController) Detail(c *gin.Context) {
 		return
 	}
 	response.Data(c, categoryModel)
+	//测试改为正常时间
 	//time := categoryModel.CreatedAt.Format("2006-01-02 15:04:05")
 	//response.JSON(c, gin.H{
 	//	"code": 200,
