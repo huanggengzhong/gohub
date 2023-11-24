@@ -26,7 +26,7 @@ func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 		fmt.Println("数据库底层错误:", err.Error())
 	}
 
-	fmt.Println("数据库初始化成功")
+	fmt.Println("数据库初始化结束")
 }
 
 func TableName(obj interface{}) string {
