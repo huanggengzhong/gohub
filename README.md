@@ -10,4 +10,4 @@ air
 
 swag init 后访问:http://localhost:3000/swagger/index.html#/
 
-2023年11月24日11:18:08开始部署go ,改了go 1.19 变为1.17
+2023年11月24日11:18:08开始部署go 
