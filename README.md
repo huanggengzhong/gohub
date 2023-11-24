@@ -10,7 +10,7 @@ air
 
 swag init 后访问:http://localhost:3000/swagger/index.html#/
 
-### docker部署go 
+### docker部署go 有问题,待定
 
 
 
