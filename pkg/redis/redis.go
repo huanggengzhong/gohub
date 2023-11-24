@@ -47,7 +47,7 @@ func NewClient(address string, username string, password string, db int) *RedisC
 
 func (rds RedisClient) Ping() error {
 	res, err := rds.Client.Ping(rds.Context).Result()
-	fmt.Println("redis初始化成功:", res)
+	fmt.Println("redis初始化结束:", res)
 	return err
 }
 
