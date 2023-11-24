@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"gohub/bootstrap"
 	btsConfig "gohub/config"
 	"gohub/pkg/config"
+
+	"github.com/gin-gonic/gin"
 )
 
 func init() {
@@ -17,10 +18,10 @@ func main() {
 	var env string
 	flag.StringVar(&env, "env", "", "加载.env.xx文件")
 	flag.Parse()
-	//air 运行或者命令无--env=参数默认设置local
-	if env == "" {
-		env = "local"
-	}
+	// //air 运行或者命令无--env=参数默认设置local
+	// if env == "" {
+	// 	env = "local"
+	// }
 	//初始化配置
 	config.InitConfig(env)
 

@@ -2,10 +2,11 @@ package config
 
 import (
 	"fmt"
-	"github.com/spf13/cast"
-	viperlib "github.com/spf13/viper"
 	"gohub/pkg/helpers"
 	"os"
+
+	"github.com/spf13/cast"
+	viperlib "github.com/spf13/viper"
 )
 
 var viper *viperlib.Viper
@@ -40,7 +41,7 @@ func Env(envName string, defaultValue ...interface{}) interface{} {
 
 // 初始化配置
 func InitConfig(env string) {
-	fmt.Println("当前环境:", env)
+
 	// 1. 加载环境变量
 	loadEnv(env)
 	// 2. 注册配置信息
@@ -77,6 +78,7 @@ func loadEnv(envSuffix string) {
 			envPath = filePath
 		}
 	}
+	fmt.Println("当前运行的环境文件是:", envPath)
 	// 加载 env
 	viper.SetConfigName(envPath)
 	if err := viper.ReadInConfig(); err != nil {
