@@ -12,7 +12,12 @@ swag init 后访问:http://localhost:3000/swagger/index.html#/
 
 ### docker部署go 有问题,待定
 
+正常nginx部署:
+项目目录下执行
+go build main.go
+nohub ./main
 
+nohub用法资料链接https://zhuanlan.zhihu.com/p/490632944?utm_id=0
 
 完整部署:(会更新最新代码)
 查看影像
