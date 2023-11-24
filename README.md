@@ -12,12 +12,25 @@ swag init 后访问:http://localhost:3000/swagger/index.html#/
 
 ### docker部署go 
 
+
+
+完整部署:(会更新最新代码)
+查看影像
+docker images 
+删除多余的旧影像(节省内存)
+docker rmi <image>
+
 根据Dockerfile打包影像,如下面的影像名gohub-docker-test
 ```go
-docker build -t gohub-docker-test .
+docker build -t gohub-test .
 ```
+
 运行影像
 # 容器中8000端口，自己浏览器上访问的是9001
 docker run --rm -p 9001:8000 影像id
 
 
+
+
+2023年11月24日17:40:52 备忘录
+env文件APP_ENV改为production会报错

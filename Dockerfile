@@ -11,17 +11,23 @@ ENV GO115MODULE=on\
 # 当前的工作目录
 WORKDIR /app
 # 复制项目中的 go.mod 和 go.sum文件并下载依赖信息
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
+#COPY go.mod .
+#COPY go.sum .
+#RUN go mod download
+RUN rm -rf go.mod
+RUN rm -rf go.sum
+RUN go mod init gohub
+RUN go mod tidy
+
+
 
 # 将别的文件拷贝到工作目录中
 COPY . .
 
 # 编译代码
-RUN go build -o docker_go main.go
+RUN go build -o main main.go
 # 暴露出去端口
 EXPOSE 8000
 
 # 启动命令
-CMD ["./docker_go"]
+CMD ["./main"]
