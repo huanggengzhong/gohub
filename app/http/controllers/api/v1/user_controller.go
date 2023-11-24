@@ -5,6 +5,8 @@ import (
 	"gohub/app/models/user"
 	"gohub/app/requests"
 	"gohub/pkg/auth"
+	"gohub/pkg/config"
+	"gohub/pkg/file"
 	"gohub/pkg/response"
 	"net/http"
 )
@@ -72,4 +74,28 @@ func (ctrl *UsersController) Update(c *gin.Context) {
 		response.Abort500(c, "修改失败")
 	}
 
+}
+
+// @Summary 修改用户头像
+// @Produce  json
+// @Tags 用户
+// @description 请使用formdata格式上传,key名avatar
+// @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
+// @Router /v1/users/avatar [put]
+func (ctrl *UsersController) UpdateAvatar(c *gin.Context) {
+	request := requests.UserUpdateAvatarRequest{}
+	if ok := requests.Validate(c, &request, requests.UserUpdateAvatar); !ok {
+		return
+	}
+	//保存头像
+	avatar, err := file.SaveUploadAvatar(c, request.Avatar)
+	if err != nil {
+		response.Abort500(c, "头像上传失败")
+		return
+	}
+	//数据库更新
+	userModel := auth.CurrentUser(c)
+	userModel.Avatar = config.Get("app.url") + "/" + avatar
+	userModel.Save()
+	response.Data(c, userModel)
 }

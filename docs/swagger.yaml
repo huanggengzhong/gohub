@@ -420,6 +420,19 @@ paths:
       summary: 修改当前用户
       tags:
       - 用户
+  /v1/users/avatar:
+    put:
+      description: 请使用formdata格式上传,key名avatar
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 上传用户头像
+      tags:
+      - 用户
   /verify-codes/captcha:
     post:
       produces:

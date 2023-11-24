@@ -8,10 +8,13 @@ import (
 	"gohub/app/http/controllers/api/v1/auth"
 	"gohub/app/http/middlewares"
 	_ "gohub/docs"
+	"net/http"
 )
 
 // 注册路由
 func RegisterAPIRoutes(r *gin.Engine) {
+	//静态文件访问
+	r.StaticFS("/public", http.Dir("public"))
 	// Swagger 文档路由
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
@@ -61,6 +64,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			{
 				usersGroup.GET("", middlewares.AuthJWT(), UsersControllerInit.Index)
 				usersGroup.PUT("", middlewares.AuthJWT(), UsersControllerInit.Update)
+				usersGroup.PUT("/avatar", middlewares.AuthJWT(), UsersControllerInit.UpdateAvatar)
 			}
 			//分类接口
 			CategoryControllerInit := new(controllers.CategoryController)

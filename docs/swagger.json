@@ -643,6 +643,26 @@
                 }
             }
         },
+        "/v1/users/avatar": {
+            "put": {
+                "description": "请使用formdata格式上传,key名avatar",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "上传用户头像",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/verify-codes/captcha": {
             "post": {
                 "produces": [

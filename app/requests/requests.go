@@ -43,3 +43,15 @@ func validate(data interface{}, rules govalidator.MapData, message govalidator.M
 	}
 	return govalidator.New(opts).ValidateStruct()
 }
+
+func validateFile(c *gin.Context, data interface{}, rules govalidator.MapData, message govalidator.MapData) map[string][]string {
+	opts := govalidator.Options{
+		Request:       c.Request,
+		Rules:         rules,
+		Messages:      message,
+		TagIdentifier: "valid",
+	}
+
+	// 文件要调用 govalidator 的 Validate 方法来验证文件
+	return govalidator.New(opts).Validate()
+}
