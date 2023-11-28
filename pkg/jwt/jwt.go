@@ -150,9 +150,9 @@ func (jwt *JWT) expireAtTime() int64 {
 
 	var expireTime int64
 	if config.GetBool("app.debug") {
-		expireTime = config.GetInt64("jwt.debug_exprire_time")
+		expireTime = config.GetInt64("jwt.debug_expire_time")
 	} else {
-		expireTime = config.GetInt64("jwt.exprire_time")
+		expireTime = config.GetInt64("jwt.expire_time")
 	}
 	expire := time.Duration(expireTime) * time.Minute
 	return timenow.Add(expire).Unix()
