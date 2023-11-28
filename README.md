@@ -8,9 +8,9 @@ air
 ```
 ### 接口文档
 
-swag init 后访问:http://localhost:3000/swagger/index.html#/
+swag init 后访问http://localhost:3000/swagger/index.html#/
 
-### docker部署go 有问题,待定
+
 
 nginx已部署:
 ### 编译并运行
@@ -25,6 +25,8 @@ kill -9 pid
 
 nohup用法资料链接https://zhuanlan.zhihu.com/p/490632944?utm_id=0
 
+
+### docker部署go 有问题,待定
 完整部署:(会更新最新代码)
 查看影像
 docker images 
@@ -43,5 +45,3 @@ docker run --rm -p 9001:8000 影像id
 
 
 
-2023年11月24日17:40:52 备忘录
-env文件APP_ENV改为production会报错
