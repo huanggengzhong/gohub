@@ -13,7 +13,7 @@ func init() {
 				"port":                 config.Env("DB_PORT", "3306"),
 				"database":             config.Env("DB_DATABASE", "gohub"),
 				"username":             config.Env("DB_USERNAME", "root"),
-				"password":             config.Env("DB_PASSWORD", "admin123"),
+				"password":             config.Env("DB_PASSWORD", "xx"),
 				"charset":              "utf8mb4",
 				"max_idle_connections": config.Env("DB_MAX_IDLE_CONNECTIONS", 100),
 				"max_open_connections": config.Env("DB_MAX_OPEN_CONNECTIONS", 25),
