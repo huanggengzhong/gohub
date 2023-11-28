@@ -87,6 +87,12 @@ func RegisterAPIRoutes(r *gin.Engine) {
 				tpcGroup.GET("", TopicsControllerInit.Index)
 
 			}
+			//通用上传
+			OssControllerInit := new(controllers.OssController)
+			ossGroup := v1.Group("/oss")
+			{
+				ossGroup.POST("/upload", OssControllerInit.Upload)
+			}
 		}
 	}
 }
