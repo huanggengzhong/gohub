@@ -13,7 +13,7 @@ type FileUploadAndDownloadService struct{}
 func UploadFile(header *multipart.FileHeader) {
 
 	// 创建OSSClient实例。
-	client, err := oss.New("oss-cn-shenzhen.aliyuncs.com", "LTAI5tMJrFReUQvphLeTjbhx", "llwRToAKxYdyJLYZZD0iAADPDb4KuT")
+	client, err := oss.New("oss-cn-shenzhen.aliyuncs.com", "key", "hah")
 	if err != nil {
 		fmt.Println("Error2:", err)
 		os.Exit(-1)
