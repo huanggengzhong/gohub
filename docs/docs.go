@@ -413,6 +413,34 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/oss/upload": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "通用"
+                ],
+                "summary": "上传文件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "上传文件的key",
+                        "name": "file",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/topics": {
             "get": {
                 "produces": [
@@ -655,7 +683,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users/avatar": {
+        "/v1/users/avatar/upload": {
             "put": {
                 "description": "请使用formdata格式上传,key名avatar",
                 "produces": [
@@ -664,7 +692,7 @@ const docTemplate = `{
                 "tags": [
                     "用户"
                 ],
-                "summary": "上传用户头像",
+                "summary": "修改用户头像",
                 "responses": {
                     "200": {
                         "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",

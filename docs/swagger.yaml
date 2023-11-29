@@ -262,6 +262,24 @@ paths:
       summary: 修改分类
       tags:
       - 分类
+  /v1/oss/upload:
+    post:
+      parameters:
+      - description: 上传文件的key
+        in: query
+        name: file
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 上传文件
+      tags:
+      - 通用
   /v1/topics:
     get:
       parameters:
@@ -420,7 +438,7 @@ paths:
       summary: 修改当前用户
       tags:
       - 用户
-  /v1/users/avatar:
+  /v1/users/avatar/upload:
     put:
       description: 请使用formdata格式上传,key名avatar
       produces:
@@ -430,7 +448,7 @@ paths:
           description: '{"code":200,"data":true,"msg":"success"}'
           schema:
             type: string
-      summary: 上传用户头像
+      summary: 修改用户头像
       tags:
       - 用户
   /verify-codes/captcha:
