@@ -121,17 +121,19 @@ func (b *BUCKET) UploadPart(fileName, filePath string, c *gin.Context) (string, 
 	}
 
 	// 指定Object的读写权限为私有，默认为继承Bucket的读写权限。
-	objectAcl := oss.ObjectACL(oss.ACLPrivate)
+	objectAcl := oss.ObjectACL(oss.ACLPublicReadWrite)
+	//objectAcl := oss.ObjectACL(oss.ACLPrivate)
 
 	// 步骤3：完成分片上传。
-	cmur, err := b.Bucket.CompleteMultipartUpload(imur, parts, objectAcl)
+	_, err = b.Bucket.CompleteMultipartUpload(imur, parts, objectAcl)
+	//cmur, err := b.Bucket.CompleteMultipartUpload(imur, parts, objectAcl)
 	if err != nil {
 		response.Abort500(c)
 		os.Exit(-1)
 		return "", err
 
 	}
-	fmt.Println("cmur:", cmur)
+	//fmt.Println("cmur:", cmur)
 	return objectName, nil
 }
 
