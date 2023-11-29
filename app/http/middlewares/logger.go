@@ -50,7 +50,11 @@ func Logger() gin.HandlerFunc {
 		}
 		if c.Request.Method == "POST" || c.Request.Method == "PUT" || c.Request.Method == "DELETE" {
 			//请求内容
-			logFields = append(logFields, zap.String("请求体是", string(requestBody)))
+			var allow bool = strings.Contains(c.Request.URL.Path, "upload")
+			//屏蔽上传的请求日志,不然日子库文件太大了,也影响了上传速度
+			if !allow {
+				logFields = append(logFields, zap.String("请求体是", string(requestBody)))
+			}
 			//响应内容
 			logFields = append(logFields, zap.String("响应体是", w.body.String()))
 		}
@@ -60,11 +64,8 @@ func Logger() gin.HandlerFunc {
 		} else if responStatus >= 500 && responStatus <= 599 {
 			logger.Error("HTTP Error Log"+cast.ToString(responStatus), logFields...)
 		} else {
-			var allow bool = strings.Contains(c.Request.URL.Path, "upload")
-			//屏蔽上传的日志,不然日子库文件太大了,也影响了上传
-			if !allow {
-				logger.Debug("HTTP Access Log"+cast.ToString(responStatus), logFields...)
-			}
+
+			logger.Debug("HTTP Access Log"+cast.ToString(responStatus), logFields...)
 		}
 	}
 }

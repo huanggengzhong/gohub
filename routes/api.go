@@ -91,7 +91,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			OssControllerInit := new(controllers.OssController)
 			ossGroup := v1.Group("/oss")
 			{
-				ossGroup.POST("/upload", OssControllerInit.Upload)
+				ossGroup.PUT("/upload", OssControllerInit.Upload)
+				ossGroup.PUT("/uploadpart", OssControllerInit.UploadPart)
 			}
 		}
 	}
