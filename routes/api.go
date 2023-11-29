@@ -64,7 +64,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			{
 				usersGroup.GET("", middlewares.AuthJWT(), UsersControllerInit.Index)
 				usersGroup.PUT("", middlewares.AuthJWT(), UsersControllerInit.Update)
-				usersGroup.PUT("/avatar", middlewares.AuthJWT(), UsersControllerInit.UpdateAvatar)
+				usersGroup.PUT("/avatar/upload", middlewares.AuthJWT(), UsersControllerInit.UpdateAvatar)
 			}
 			//分类接口
 			CategoryControllerInit := new(controllers.CategoryController)

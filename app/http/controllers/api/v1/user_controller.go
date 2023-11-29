@@ -81,14 +81,14 @@ func (ctrl *UsersController) Update(c *gin.Context) {
 // @Tags 用户
 // @description 请使用formdata格式上传,key名avatar
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
-// @Router /v1/users/avatar [put]
+// @Router /v1/users/avatar/upload [put]
 func (ctrl *UsersController) UpdateAvatar(c *gin.Context) {
 	request := requests.UserUpdateAvatarRequest{}
 	if ok := requests.Validate(c, &request, requests.UserUpdateAvatar); !ok {
 		return
 	}
 	//保存头像
-	avatar, err := file.SaveUploadAvatar(c, request.Avatar)
+	_, avatar, err := file.SaveUploadFile(c, request.Avatar)
 	if err != nil {
 		response.Abort500(c, "头像上传失败")
 		return

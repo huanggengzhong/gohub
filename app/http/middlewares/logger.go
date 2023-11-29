@@ -9,6 +9,7 @@ import (
 	"gohub/pkg/helpers"
 	"gohub/pkg/logger"
 	"io/ioutil"
+	"strings"
 	"time"
 )
 
@@ -59,7 +60,11 @@ func Logger() gin.HandlerFunc {
 		} else if responStatus >= 500 && responStatus <= 599 {
 			logger.Error("HTTP Error Log"+cast.ToString(responStatus), logFields...)
 		} else {
-			logger.Debug("HTTP Access Log"+cast.ToString(responStatus), logFields...)
+			var allow bool = strings.Contains(c.Request.URL.Path, "upload")
+			//屏蔽上传的日志,不然日子库文件太大了,也影响了上传
+			if !allow {
+				logger.Debug("HTTP Access Log"+cast.ToString(responStatus), logFields...)
+			}
 		}
 	}
 }
