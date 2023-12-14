@@ -94,6 +94,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
 				ossGroup.PUT("/upload", OssControllerInit.Upload)
 				ossGroup.PUT("/uploadpart", OssControllerInit.UploadPart)
 			}
+			//chatgpt
+			ChatGptControllerInit := new(controllers.ChatGptController)
+			gptGroup := v1.Group("/chatgpt")
+			{
+				gptGroup.POST("/send", ChatGptControllerInit.Send)
+				gptGroup.GET("/balance", ChatGptControllerInit.Balance)
+			}
 		}
 	}
 }
