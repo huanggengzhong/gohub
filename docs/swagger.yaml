@@ -262,6 +262,36 @@ paths:
       summary: 修改分类
       tags:
       - 分类
+  /v1/chatgpt/balance:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 余额
+      tags:
+      - chatgpt
+  /v1/chatgpt/send:
+    post:
+      parameters:
+      - description: 发送的消息内容
+        in: query
+        name: content
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 聊天
+      tags:
+      - chatgpt
   /v1/oss/upload:
     post:
       parameters:
@@ -277,7 +307,7 @@ paths:
           description: '{"code":200,"data":true,"msg":"success"}'
           schema:
             type: string
-      summary: 上传文件
+      summary: 分片上传(适合大文件)
       tags:
       - 通用
   /v1/topics:

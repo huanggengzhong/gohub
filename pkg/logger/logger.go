@@ -129,6 +129,13 @@ func LogIf(err error) {
 	}
 }
 
+func LogIfR(err error) {
+	if err != nil {
+		Logger.Error("Error Occurred:", zap.Error(err))
+		return
+	}
+}
+
 // LogWarnIf 当 err != nil 时记录 warning 等级的日志
 func LogWarnIf(err error) {
 	if err != nil {

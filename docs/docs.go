@@ -413,6 +413,53 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/chatgpt/balance": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "chatgpt"
+                ],
+                "summary": "余额",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/chatgpt/send": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "chatgpt"
+                ],
+                "summary": "聊天",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "发送的消息内容",
+                        "name": "content",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/oss/upload": {
             "post": {
                 "produces": [
@@ -421,7 +468,7 @@ const docTemplate = `{
                 "tags": [
                     "通用"
                 ],
-                "summary": "上传文件",
+                "summary": "分片上传(适合大文件)",
                 "parameters": [
                     {
                         "type": "string",
