@@ -448,6 +448,12 @@ const docTemplate = `{
                         "name": "content",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否要求返回为流类型",
+                        "name": "is_stream",
+                        "in": "query"
                     }
                 ],
                 "responses": {

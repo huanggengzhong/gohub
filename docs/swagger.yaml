@@ -282,6 +282,10 @@ paths:
         name: content
         required: true
         type: string
+      - description: 是否要求返回为流类型
+        in: query
+        name: is_stream
+        type: boolean
       produces:
       - application/json
       responses:
