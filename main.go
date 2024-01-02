@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"gohub/bootstrap"
 	btsConfig "gohub/config"
 	"gohub/pkg/config"
-
-	"github.com/gin-gonic/gin"
+	"gohub/pkg/coss"
 )
 
 func init() {
@@ -34,6 +34,8 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	// 初始化Gin实例
 	r := gin.New()
+	r.Use(coss.Cors()) //解决跨域
+
 	//初始化DB
 	bootstrap.SetupDB()
 	//初始化redis
@@ -46,3 +48,5 @@ func main() {
 		fmt.Println("运行错误:", err.Error())
 	}
 }
+
+// 开启跨域函数
