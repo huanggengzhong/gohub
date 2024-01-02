@@ -49,6 +49,7 @@ type balanceData struct {
 // @Produce  json
 // @Tags chatgpt
 // @Param content query string true "发送的消息内容"
+// @Param is_stream query bool false "是否要求返回为流类型"
 // @Success 200 {string} json "{"code":200,"data":true,"msg":"success"}"
 // @Router /v1/chatgpt/send [post]
 func (t *ChatGptController) Send(c *gin.Context) {
@@ -61,17 +62,19 @@ func (t *ChatGptController) Send(c *gin.Context) {
 		"Authorization": "Bearer " + config.Get("gpt.gpt_sk"),
 		"Content-Type":  "application/json",
 	}
-	postResponse, err := gpt.SendPostRequest(config.Get("gpt.gpt_completions_url"), request.Content, postHeaders)
+	postResponse, err := gpt.SendPostRequest(config.Get("gpt.gpt_completions_url"), request.Content, postHeaders, request.IsStream)
+
 	if err != nil {
 		response.Abort500(c, "gpt请求失败")
 	}
 	// 使用json.Unmarshal进行解码
 	var chatCompletion ChatCompletion
 	err = json.Unmarshal([]byte(string(postResponse)), &chatCompletion)
-	if err != nil {
+	if err != nil && !request.IsStream {
 		response.Abort500(c, "gpt解析json失败")
 	}
-	response.Data(c, chatCompletion)
+	response.Data(c, string(postResponse))
+	//response.Data(c, chatCompletion)
 }
 
 // @Summary 余额

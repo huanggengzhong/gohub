@@ -17,7 +17,7 @@ var (
 )
 
 // 发送请求
-func SendPostRequest(url, data string, headers map[string]string) ([]byte, error) {
+func SendPostRequest(url, data string, headers map[string]string, stream bool) ([]byte, error) {
 
 	// 构造消息体
 	requestData := map[string]interface{}{
@@ -25,6 +25,7 @@ func SendPostRequest(url, data string, headers map[string]string) ([]byte, error
 		"messages": []map[string]string{
 			{"role": "user", "content": data},
 		},
+		"stream": stream,
 	}
 	// 将数据转换为JSON字符串
 	jsonData, e := json.Marshal(requestData)
