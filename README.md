@@ -26,21 +26,28 @@ kill -9 pid
 nohup用法资料链接https://zhuanlan.zhihu.com/p/490632944?utm_id=0
 
 
-### docker部署go 有问题,待定
-完整部署:(会更新最新代码)
-查看影像
-docker images 
-删除多余的旧影像(节省内存)
-docker rmi <image>
+supervisor 守护进程
+supervisor配置文件在:/etc/supervisord.conf
+gohub单独项目配置在:/etc/supervisor/config.d/gohub.ini
 
-根据Dockerfile打包影像,如下面的影像名gohub-docker-test
-```go
-docker build -t gohub-test .
+
+配置参考:
 ```
-
-运行影像
-# 容器中8000端口，自己浏览器上访问的是9001
-docker run --rm -p 9001:8000 影像id
+```go
+[program:gohub] ;gohub叫进程名
+directory=/root/mydata/gohub;项目目录
+command=/root/mydata/gohub/main ;项目目录+二进制文件
+autostart=true 
+autorestart=true;当程序崩溃时就会重启
+stderr_logfile=/var/log/main.err;错误日志
+stdout_logfile=/var/log/main.log;终端打印日志 
+```
+如果改了配置文件重启命令
+```go
+sudo supervisorctl reload
+```
+终端命名:
+![img.png](img.png)
 
 
 
