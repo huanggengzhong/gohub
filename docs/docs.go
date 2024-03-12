@@ -466,6 +466,34 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/log/add": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "数据库日志"
+                ],
+                "summary": "增加日志",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "内容",
+                        "name": "message",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":true,\"msg\":\"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/oss/upload": {
             "post": {
                 "produces": [

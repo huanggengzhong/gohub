@@ -296,6 +296,24 @@ paths:
       summary: 聊天
       tags:
       - chatgpt
+  /v1/log/add:
+    post:
+      parameters:
+      - description: 内容
+        in: query
+        name: message
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":true,"msg":"success"}'
+          schema:
+            type: string
+      summary: 增加日志
+      tags:
+      - 数据库日志
   /v1/oss/upload:
     post:
       parameters:
