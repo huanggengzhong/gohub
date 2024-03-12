@@ -3,14 +3,16 @@ package bootstrap
 import (
 	"fmt"
 	"gohub/app/models/category"
+	"gohub/app/models/log"
 	"gohub/app/models/topic"
 	"gohub/app/models/user"
 	"gohub/pkg/config"
 	"gohub/pkg/database"
 	"gohub/pkg/logger"
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"time"
 )
 
 func SetupDB() {
@@ -48,4 +50,6 @@ func SetupDB() {
 	database.DB.AutoMigrate(&category.Category{})
 	//根据话题模型自动创建数据库表
 	database.DB.AutoMigrate(&topic.Topic{})
+	//根据日志模型自动创建数据库表
+	database.DB.AutoMigrate(&log.Log{})
 }

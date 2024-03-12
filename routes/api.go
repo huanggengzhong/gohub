@@ -1,14 +1,15 @@
 package routes
 
 import (
-	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	controllers "gohub/app/http/controllers/api/v1"
 	"gohub/app/http/controllers/api/v1/auth"
 	"gohub/app/http/middlewares"
 	_ "gohub/docs"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // 注册路由
@@ -100,6 +101,12 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			{
 				gptGroup.POST("/send", ChatGptControllerInit.Send)
 				gptGroup.GET("/balance", ChatGptControllerInit.Balance)
+			}
+			//通用日志
+			LogControllerInit := new(controllers.LogController)
+			logGroup := v1.Group("/log")
+			{
+				logGroup.POST("/add", LogControllerInit.Add)
 			}
 		}
 	}
