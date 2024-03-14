@@ -1,13 +1,13 @@
 package auth
 
 import (
-	"github.com/gin-gonic/gin"
 	v1 "gohub/app/http/controllers/api/v1"
 	"gohub/app/requests"
 	"gohub/pkg/captcha"
 	"gohub/pkg/logger"
 	"gohub/pkg/response"
-	"gohub/pkg/verifycode"
+
+	"github.com/gin-gonic/gin"
 )
 
 type VerifyCodeController struct {
@@ -48,9 +48,11 @@ func (vc VerifyCodeController) SendUsingPhone(c *gin.Context) {
 		return
 	}
 	//发送短信
-	if ok := verifycode.NewVerifyCode().SendSMS(request.Phone); !ok {
-		response.Abort500(c, "发送短信失败")
-	} else {
-		response.Success(c)
-	}
+	// if ok := verifycode.NewVerifyCode().SendSMS(request.Phone); !ok {
+	// 	response.Abort500(c, "发送短信失败")
+	// } else {
+	// 	response.Success(c)
+	// }
+	//短信去除
+	response.Success(c)
 }

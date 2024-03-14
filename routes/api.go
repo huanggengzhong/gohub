@@ -46,7 +46,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			//验证
 			vcc := new(auth.VerifyCodeController)
 			authGroup.POST("/verify-codes/captcha", middlewares.LimitPerRoute("20-H"), vcc.ShowCaptcha)
-			authGroup.POST("/varify-codes/phone", middlewares.LimitPerRoute("20-H"), vcc.SendUsingPhone)
+			// authGroup.POST("/varify-codes/phone", middlewares.LimitPerRoute("20-H"), vcc.SendUsingPhone)//aliyun短信没续费,已注释相关代码
 
 			//登录
 			loginControllerInit := new(auth.LoginController)

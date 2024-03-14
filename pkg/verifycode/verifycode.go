@@ -5,7 +5,8 @@ import (
 	"gohub/pkg/helpers"
 	"gohub/pkg/logger"
 	"gohub/pkg/redis"
-	"gohub/pkg/sms"
+
+	// "gohub/pkg/sms"
 	"sync"
 )
 
@@ -34,21 +35,21 @@ func NewVerifyCode() *VerifyCode {
 //
 //	verifycode.NewVerifyCode().SendSMS(request.Phone)
 
-func (vc *VerifyCode) SendSMS(phone string) bool {
-	//生成验证码
-	code := vc.generateVerifyCode(phone)
-	// 方便本地和 API 自动测试
-	//if !app.IsProduction() && strings.HasPrefix(phone, config.GetString("verifycode.debug_phone_prefix")) {
-	//	return true
-	//}
-	//发送短信
-	return sms.NewSMS().Send(phone, sms.Message{
-		Template: config.GetString("sms.aliyun.template_code"),
-		Data: map[string]string{
-			"code": code,
-		},
-	})
-}
+// func (vc *VerifyCode) SendSMS(phone string) bool {
+// 	//生成验证码
+// 	code := vc.generateVerifyCode(phone)
+// 	// 方便本地和 API 自动测试
+// 	//if !app.IsProduction() && strings.HasPrefix(phone, config.GetString("verifycode.debug_phone_prefix")) {
+// 	//	return true
+// 	//}
+// 	//发送短信
+// 	return sms.NewSMS().Send(phone, sms.Message{
+// 		Template: config.GetString("sms.aliyun.template_code"),
+// 		Data: map[string]string{
+// 			"code": code,
+// 		},
+// 	})
+// }
 
 // generateVerifyCode 生成验证码，并放置于 Redis 中
 func (vc *VerifyCode) generateVerifyCode(key string) string {
