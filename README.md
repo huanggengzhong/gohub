@@ -16,7 +16,7 @@ nginx已部署:
 ### 编译并运行
 项目目录下执行
 go build main.go
-nohup ./main
+nohup ./main(旧,建议直接使用宝塔守护进程)
 
 ### 停止
 lsof -i :3000
@@ -49,6 +49,24 @@ sudo supervisorctl reload
 终端命名:
 ![img.png](img.png)
 
+关于发布方式:
+2024年03月22日已配置宝塔supervisor守护进程
+更新方法:1.go build main.go 2.重启守护进程或者sudo supervisorctl reload
 
-
-
+宝塔守护进程工程:
+```
+[program:gohub]
+command=/root/gohub/main
+directory=/root/gohub
+autorestart=true
+startsecs=3
+startretries=3
+stdout_logfile=/www/server/panel/plugin/supervisor/log/gohub.out.log
+stderr_logfile=/www/server/panel/plugin/supervisor/log/gohub.err.log
+stdout_logfile_maxbytes=2MB
+stderr_logfile_maxbytes=2MB
+user=root
+priority=999
+numprocs=1
+process_name=%(program_name)s_%(process_num)02d
+```

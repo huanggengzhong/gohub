@@ -8,6 +8,7 @@ import (
 type Log struct {
 	models.BaseModel
 	Message string `json:"message,omitempty" gorm:"type:longtext;not null"`
+	models.CommonTimestampsField
 }
 
 func (t *Log) Create() {
